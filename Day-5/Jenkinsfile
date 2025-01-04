@@ -1,0 +1,37 @@
+pipeline { 
+  agent any 
+  environment { TF_WORKSPACE = 'Day-5'}
+  environment { AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID') AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY') }
+
+    stages {
+        stage('Clone Repository') {
+            steps {
+                git 'https://github.com/pravallikagithubrit/terraform-zero-to-hero.git'
+            }
+        }
+        stage('Terraform Init') {
+            steps {
+                dir('Day-5') {
+                    sh 'terraform init'
+                }
+            }
+        }
+        stage('Terraform plan') {
+            steps {
+                dir('Day-5') {
+                    sh 'terraform plan'
+                }
+            }
+        }
+        stage('Terraform apply') {
+            steps {
+                dir('Day-5') {
+                    sh 'terraform apply'
+                }
+            }
+        }
+        stage('Test Application') { 
+            steps {
+                 sh 'curl http://54.90.195.188:5000' } }
+
+    }
