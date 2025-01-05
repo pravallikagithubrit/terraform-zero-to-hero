@@ -14,7 +14,11 @@ pipeline {
         }
         stage('Clone Repository') {
             steps {
-                git branch: 'main', url: 'https://github.com/pravallikagithubrit/terraform-zero-to-hero.git'
+                retry(3) { // Retry the checkout step up to 3 times
+                    checkout([$class: 'GitSCM', branches: [[name: '*/main']], 
+                              userRemoteConfigs: [[url: 'https://github.com/pravallikagithubrit/terraform-zero-to-hero.git']]
+                    ])
+                }
             }
         }
         stage('Terraform Init') {
