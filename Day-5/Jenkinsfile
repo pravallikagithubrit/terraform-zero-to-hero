@@ -41,7 +41,7 @@ pipeline {
         }
         stage('Test Application') { 
             steps {
-                sh 'curl http://52.91.52.7:5000'
+                sh 'curl http://54.81.134.133:5000'
             }
         }
     }
