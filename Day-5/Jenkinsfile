@@ -7,6 +7,12 @@ pipeline {
     }
 
     stages {
+
+        stage('Cleanup Workspace') {
+            steps { deleteDir() // This step deletes the contents of the workspace
+                  
+            }
+        }
         stage('Clone Repository') {
             steps {
                 git 'https://github.com/pravallikagithubrit/terraform-zero-to-hero.git'
